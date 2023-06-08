@@ -166,7 +166,8 @@ bool SquirrelerAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* SquirrelerAudioProcessor::createEditor()
 {
-    return new SquirrelerAudioProcessorEditor (*this);
+    //return new SquirrelerAudioProcessorEditor (*this);
+    return new juce::GenericAudioProcessorEditor(*this);
 }
 
 //==============================================================================
@@ -181,6 +182,35 @@ void SquirrelerAudioProcessor::setStateInformation (const void* data, int sizeIn
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
+}
+
+juce::AudioProcessorValueTreeState::ParameterLayout SquirrelerAudioProcessor::createParameterLayout()
+{
+    juce::AudioProcessorValueTreeState::ParameterLayout layout;
+
+    layout.add(std::make_unique<juce::AudioParameterInt>(
+        "NumberOfCycles", 
+        "NumberOfCycles", 
+        0, 
+        5000,
+        10
+    ));
+
+    layout.add(std::make_unique<juce::AudioParameterFloat>(
+        "Height",
+        "Height",
+        juce::NormalisableRange<float>(0.0f, 20.0f, 0.1f, 1.0f),
+        1.0f
+    ));
+
+    layout.add(std::make_unique<juce::AudioParameterFloat>(
+        "Phase",
+        "Phase",
+        juce::NormalisableRange<float>(-10000.0f, 10000.0f, 0.5f, 0.0f),
+        1.0f
+    ));
+
+    return layout;
 }
 
 //==============================================================================
