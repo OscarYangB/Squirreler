@@ -10,6 +10,15 @@
 
 #include <JuceHeader.h>
 
+struct ChainSettings
+{
+    float cycleLength;
+    float cycleHeight;
+    float phase;
+};
+
+ChainSettings getChainSettings(juce::AudioProcessorValueTreeState& apvts);
+
 //==============================================================================
 /**
 */
@@ -72,7 +81,13 @@ private:
 
     using MonoChain = juce::dsp::ProcessorChain<Filter>;
 
-    MonoChain leftChain, rightChain; 
+    MonoChain leftChain, rightChain;
+
+    using Coefficients = Filter::CoefficientsPtr;
+
+    static void UpdateCoefficients(Coefficients& old, const Coefficients replacement);
+
+    void UpdatePeakFilter(const ChainSettings& chainSettings);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SquirrelerAudioProcessor)

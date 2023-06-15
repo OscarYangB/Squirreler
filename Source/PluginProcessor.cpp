@@ -104,6 +104,9 @@ void SquirrelerAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
 
     leftChain.prepare(spec);
     rightChain.prepare(spec);
+
+    ChainSettings chainSettings = getChainSettings(apvts);
+    UpdatePeakFilter(chainSettings);
 }
 
 void SquirrelerAudioProcessor::releaseResources()
@@ -153,6 +156,10 @@ void SquirrelerAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
+    ChainSettings chainSettings = getChainSettings(apvts);
+
+    UpdatePeakFilter(chainSettings);
+
     juce::dsp::AudioBlock<float> block(buffer);
 
     juce::dsp::AudioBlock<float> leftBlock = block.getSingleChannelBlock(0);
@@ -198,12 +205,12 @@ juce::AudioProcessorValueTreeState::ParameterLayout SquirrelerAudioProcessor::cr
     layout.add(std::make_unique<juce::AudioParameterFloat>(
         "CycleLength", 
         "CycleLength", 
-        juce::NormalisableRange<float>(0.01f, 10000.0, 0.01f, 1.0f),
+        juce::NormalisableRange<float>(0.01f, 100.0f, 0.01f, 1.0f),
         1.0f
     ));
 
     layout.add(std::make_unique<juce::AudioParameterFloat>(
-        "CycleHeight",
+        "CycleHeight", 
         "CycleHeight",
         juce::NormalisableRange<float>(0.0f, 20.0f, 0.1f, 1.0f),
         1.0f
@@ -219,9 +226,34 @@ juce::AudioProcessorValueTreeState::ParameterLayout SquirrelerAudioProcessor::cr
     return layout;
 }
 
+void SquirrelerAudioProcessor::UpdateCoefficients(Coefficients& old, const Coefficients replacement)
+{
+    *old = *replacement;
+}
+
+void SquirrelerAudioProcessor::UpdatePeakFilter(const ChainSettings& chainSettings)
+{
+    auto peakCoefficients = juce::dsp::IIR::Coefficients<float>::makePeakFilter(
+        getSampleRate(), 5000.0f, 1 / chainSettings.cycleLength, juce::Decibels::decibelsToGain(chainSettings.cycleHeight));
+
+    UpdateCoefficients(leftChain.get<0>().coefficients, peakCoefficients);
+    UpdateCoefficients(rightChain.get<0>().coefficients, peakCoefficients);
+}
+
 //==============================================================================
 // This creates new instances of the plugin..
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new SquirrelerAudioProcessor();
+}
+
+ChainSettings getChainSettings(juce::AudioProcessorValueTreeState& apvts)
+{
+    ChainSettings settings {};
+
+    settings.cycleHeight = apvts.getRawParameterValue("CycleHeight")->load();
+    settings.cycleLength = apvts.getRawParameterValue("CycleLength")->load();
+    settings.phase = apvts.getRawParameterValue("Phase")->load();
+
+    return settings;
 }
