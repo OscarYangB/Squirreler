@@ -64,7 +64,7 @@
   <FILTER uid="5" x="0.5425" y="0.4435483870967742" useARA="0">
     <PLUGIN name="Squirreler" format="VST3" category="Fx" manufacturer="yourcompany"
             version="1.0.0" file="C:\Users\Oscar\Documents\Repos\Squirreler\Builds\VisualStudio2022\x64\Debug\VST3\Squirreler.vst3"
-            uniqueId="6be41e" isInstrument="0" fileTime="188a74dfebb" infoUpdateTime="188a7528636"
+            uniqueId="6be41e" isInstrument="0" fileTime="188c175ee97" infoUpdateTime="188c17ab136"
             numInputs="2" numOutputs="2" isShell="0" hasARAExtension="0"
             uid="e9591080"/>
     <STATE>191.VMjLgXK....O+fWarAhckI2bo8la8HRLt.iHfTlai8FYo41Y8HRUTYTK3HxO9.BOVMEUy.Ea0cVZtMEcgQWY9vSRC8Vav8lak4Fc9XCLt3hKt3hKt3hKt3hYRUUSTEETIckVwTjQisVTTgkdEYjKAQjYPQSPWgUdMcjKAQjct3hdA4hKt3hKt3hKtnTUv.UQAslXuk0UXoWUFE0YQcEV77RRC8Vav8lak4Fc9vyKVMEUy.Ea0cVZtMEcgQWY9..</STATE>
@@ -81,7 +81,7 @@
           uiLastX_Normal="8" uiLastY_Normal="209" uiopen_Normal="1">
     <PLUGIN name="vstPlayer" format="VST3" category="Instrument|Synth" manufacturer="yourcompany"
             version="2.3.4" file="C:\Users\Oscar\Documents\VstPlugins\vstPlayer.vst3"
-            uniqueId="8fdefd46" isInstrument="1" fileTime="188a73feaf5" infoUpdateTime="188a7528636"
+            uniqueId="8fdefd46" isInstrument="1" fileTime="188a73feaf5" infoUpdateTime="188c17ab137"
             numInputs="0" numOutputs="0" isShell="0" hasARAExtension="0"
             uid="ee63cfc"/>
     <STATE>831.VMjLgXy....O+fWarAhckI2bo8la8HRLt.iHfTlai8FYo41Y8HRUTYTK3HxO9.BOVMEUy.Ea0cVZtMEcgQWY9vSRC8Vav8lak4Fc9TyL43hUMczXWEjKt3hYt3hKt.kKt3hKt3BS5gEcyQjKtfjctXTR5AkaA4hKtfjYikWTGIlKHYmKD4hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKAIGaUMTRSgDaD4hKtXWdOMCLFElYXcUV30zUZUGMV8DZDk1R1gjPHsFMwfUcQYkVzMlUOgFUEUkQvHjSncSZOYlcCE1YMczXlQ0UZc0ZFkkdmY0SnY1PLYGRBgDLqYjTqsVLY4VTW8DZTMDS1gjPHY2cVgEM2YkV4EkLSQGLogzcHIDR3UkQhsVQFMFNHIDSn4BZiU2cVM1bUY0SnQTZKYGRBgjcEY0X4UkQYgCRRwDZyLzS1cmUXQycVoUdQ01S2fkUZIWUFgDcEYUXqASZHMzaCcUUMcUV30zQW8TSxf0YIczUDgSLXACLVkEcQIiXhU0Zg8VTWQFTIISXvUULXoWSGcEUmYUVAEEaisFMFMFLIcUV4giZYIDNrgUPzXTVTclUYEUUWkUdQ0VT0kzQU4VUVE0LAckV3UkQYwTQVQVdAASX5UjQiUWSDo0aAIiXyomUX8FMFcUPMIiXqEkLhIVQTMlZqESXhUEagoFLVMVdqECVzI1UXESR3sTN1k2R1cmUXQycVoUdQ01S2biPgcVSGMVNt3hKt3hKt3hKt3hKtQUUCUEQTg2ZrM1YQcUVDUjQicVPP4RPHQEY1UTLhkWPP4RPL4hKi4hKt3hKt3hKtXlTU0DUQAURWoULEYzXqEEUXoWQFwyKIMzasA2atUlaz4COuX0TTMCTrU2Yo41TzEFck4C.</STATE>
@@ -94,8 +94,26 @@
       </OUTPUTS>
     </LAYOUT>
   </FILTER>
-  <CONNECTION srcFilter="5" srcChannel="0" dstFilter="3" dstChannel="0"/>
-  <CONNECTION srcFilter="5" srcChannel="1" dstFilter="3" dstChannel="1"/>
+  <FILTER uid="7" x="0.52375" y="0.657258064516129" useARA="0">
+    <PLUGIN name="SPAN" format="VST3" category="Fx|Analyzer" manufacturer="Voxengo"
+            version="3.19" file="C:\Program Files\Common Files\VST3\SPAN.vst3"
+            uniqueId="65d3dbf7" isInstrument="0" fileTime="18896eb67f0" infoUpdateTime="188c17ab137"
+            numInputs="2" numOutputs="2" isShell="0" hasARAExtension="0"
+            uid="c2a3d69d"/>
+    <STATE>1540.VMjLgreA...O+fWarAhckI2bo8la8HRLt.iHfTlai8FYo41Y8HRUTYTK3HxO9.BOVMEUy.Ea0cVZtMEcgQWY9vSRC8Vav8lak4Fc9DCL2.iKmETahkWVGYjKtXWZt.EZtLCMUcGVvLWXTI1PEESVCkDSRA0ZBEUPDsRLp4hPUkSdK4VLPojPzgUaJUkRBQzJI4VctLULvXCcVwTdyb1c4wFTlElaRIVPv8jKqsDTPUkV1rDTkMjVkMDbTUWZwMSTH8jPhciSoICVOkGV0kmX24hU3YiX2bWa0k2S4LSYxLDZP4FLwn1b4.yJQIUY0EUNI0VQZsRUPMVZyk1MyHFSIoWXCUFdM4hQs4BbjkVMQk0bCgENz01QMI2brgTdtL1Rv4lb0IkVQcWPvMDZYkFZyPzJvDTMoQETUgGYy8VQmcUTCQSRjc1XIMCT04BdyA0ZzTkVngDLQkUUUElXRcFcYMCR0gUctPlMzMDNBMTR4LycjUDa4cSVxDTMqHTQMsVQDECZpMTbYMGULITcqsRPtkVdXcGSJgFaOokXT4VaGA2S4zVczjFczLjVqcWVV4FYKciLNEmU4UWXkoUSWElSyw1UiQ1brEWckMGakUWZVkWbIEVLJk1ZPASdqQiRBoFZ4bEQUgjbuc1PjYjciUjdTgVVPQ2MC4lSHM0ZiYiaqTDMvsBLYgmLokFU3fjVHYEaGczSDIyQ0fiXHkGYVQFM40lTZsVb3LVUYcCRYMzcxrFd1bDTL0lK2cSdAkSawP2QpkzazDUaBklPUQmasUmPy3RQMw1SycyZTQGbsUGbjEUYmMDQzfmcqTDR1rjXTQzbIYzaDYiPy01cyLTVgcFN2fyZ44zLxXTM4bCR4Q1UA4BM3DURy4lbtP0PtbyLy41Y33hXhUSdIsBQ1YSbKgkY2H0ZWE2bpA2MmsBbgAGbqTjLokjdNEmLoU1LOI1JwLza3fzLtHkPIwVZmgCUSMCZMI1JrgFa2o1LwfFZCEGVGgTcLYjQNkkMHgWXPs1ZIsTUTU0X0XldvT1TPEmSwXWZHM1c5YFRVIlPzsjbiU1Mg01cwf0TAcWd1XSdmg2U38TXTQWbvHDc1jTbuMVMJMkUYUVUQYUR0AGR1HDLPEyZvclbGMmQ3QFduoTbXUDbVgGVTg0SRIWcxDyaGk0JNQUVwA0btLSd3HVcUAUM4TlT23lKzDyQjkidAc1UuIiQxbjZu0DdVAEUFoTXwI0UvvVUCMkal4zMy7jKDUCdUIibRgULxYCdwHmMrMjTtEjZi4RT1UkLv8lYxoFLhElPZcWVxvlXu0zMYMVY3MCNqsxRPAWblAmVtI2QNkWT4IEcMEzbyImTOozU2njY0rVU34RVIEmdHoGZKYSX3sVMSgCNk8DbxsjMgMzYzfDVx3TSAgCbHsTTPwDMuMyY5EzPqLEUiY0UNEDa2gEMvrRcgMET0IjVJcGZOEVbq3RUsMVLp4FSsUkU4MWRtM2ZU4RNuUGRiQSVvMkUYIDSYIGRv4DR3zlMIQVYUESbxDVUpAibEk0b0glbrEGRwQyR3o0JEkEMTo1ZvUGb43BU2c0ausVLSACR3g0ThMkUSMDRxkCNznlZ1HjThkDUUcDQScGR3fjZnISRKESLYk1buMCVq31XPASVsMGSPAWLQUlQybjM5Qjdw3TcIEyRh4RV2nzM0LFY4Q1LJsjV4T2U3D1LN0VMkUidDoWbNAiaAYkZWU2XzvlKwIGVYc2P2T2JyYyRW81TSAUXKY0LpQ2aqbjVvrjUr4Rd2HmbrcVLw.WQ18FQO0TXGQ0XVMmZAgmXhMyLwPjdsITVI4zMYEkZkcDQyflaJcTQBgDaocVQiElPZEWdwIDVxo1Y5YWPvHFYqQTLsYCMUECcWwFV4DENzcULWg1Jm4RXsI1Z4bzcTU2TzI0ctYTQvoGZ3cFUxgjYpYVZHQ1SQciRyrVSZoVRnkkU0YSLz3hc0E0cDMiX4c2Uq.0LwbTblYTUDAEZ0ImVIcUSyL0MCYmUucDOujzPu0Fbu4VYtQmO77hUSQ0LPwVcmklaSQWXzUlO..</STATE>
+    <LAYOUT>
+      <INPUTS>
+        <BUS index="0" layout="L R"/>
+      </INPUTS>
+      <OUTPUTS>
+        <BUS index="0" layout="L R"/>
+      </OUTPUTS>
+    </LAYOUT>
+  </FILTER>
+  <CONNECTION srcFilter="5" srcChannel="0" dstFilter="7" dstChannel="0"/>
+  <CONNECTION srcFilter="5" srcChannel="1" dstFilter="7" dstChannel="1"/>
   <CONNECTION srcFilter="6" srcChannel="0" dstFilter="5" dstChannel="0"/>
   <CONNECTION srcFilter="6" srcChannel="1" dstFilter="5" dstChannel="1"/>
+  <CONNECTION srcFilter="7" srcChannel="0" dstFilter="3" dstChannel="0"/>
+  <CONNECTION srcFilter="7" srcChannel="1" dstFilter="3" dstChannel="1"/>
 </FILTERGRAPH>

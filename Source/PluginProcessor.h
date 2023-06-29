@@ -76,18 +76,15 @@ public:
     };
 
 private:
+    juce::dsp::ProcessSpec spec;
 
     using Filter = juce::dsp::IIR::Filter<float>;
 
-    using MonoChain = juce::dsp::ProcessorChain<Filter>;
+    Filter* GetPeakFilters(const ChainSettings& chainSettings);
 
-    MonoChain leftChain, rightChain;
-
-    using Coefficients = Filter::CoefficientsPtr;
-
-    static void UpdateCoefficients(Coefficients& old, const Coefficients replacement);
-
-    void UpdatePeakFilter(const ChainSettings& chainSettings);
+    const float minFrequency = 20.0f;
+    const float maxFrequency = 20000.0f;
+    const float frequencyRange = maxFrequency - minFrequency;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SquirrelerAudioProcessor)

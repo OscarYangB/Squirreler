@@ -96,17 +96,9 @@ void SquirrelerAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
 
-    juce::dsp::ProcessSpec spec {};
-
     spec.maximumBlockSize = samplesPerBlock;
     spec.numChannels = 1;
     spec.sampleRate = samplesPerBlock;
-
-    leftChain.prepare(spec);
-    rightChain.prepare(spec);
-
-    ChainSettings chainSettings = getChainSettings(apvts);
-    UpdatePeakFilter(chainSettings);
 }
 
 void SquirrelerAudioProcessor::releaseResources()
@@ -156,10 +148,6 @@ void SquirrelerAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-    ChainSettings chainSettings = getChainSettings(apvts);
-
-    UpdatePeakFilter(chainSettings);
-
     juce::dsp::AudioBlock<float> block(buffer);
 
     juce::dsp::AudioBlock<float> leftBlock = block.getSingleChannelBlock(0);
@@ -167,9 +155,17 @@ void SquirrelerAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
 
     juce::dsp::ProcessContextReplacing<float> leftContext(leftBlock);
     juce::dsp::ProcessContextReplacing<float> rightContext(rightBlock);
+    
+    ChainSettings chainSettings = getChainSettings(apvts);
+    Filter* filters = GetPeakFilters(chainSettings);
 
-    leftChain.process(leftContext);
-    rightChain.process(rightContext);
+    const int numberOfFilters = frequencyRange / chainSettings.cycleLength;
+    const Filter* lastFilter = &filters[numberOfFilters];
+    for (Filter* filter = filters; filter != lastFilter; ++filter) {
+        filter->prepare(spec);
+        filter->process(leftContext);
+        filter->process(rightContext);
+    }
 }
 
 //==============================================================================
@@ -205,39 +201,53 @@ juce::AudioProcessorValueTreeState::ParameterLayout SquirrelerAudioProcessor::cr
     layout.add(std::make_unique<juce::AudioParameterFloat>(
         "CycleLength", 
         "CycleLength", 
-        juce::NormalisableRange<float>(0.01f, 100.0f, 0.01f, 1.0f),
-        1.0f
+        juce::NormalisableRange<float>(1000.0f, 10000.0f, 0.01f, 1.0f),
+        3000.0f
     ));
 
     layout.add(std::make_unique<juce::AudioParameterFloat>(
         "CycleHeight", 
         "CycleHeight",
-        juce::NormalisableRange<float>(0.0f, 20.0f, 0.1f, 1.0f),
-        1.0f
+        juce::NormalisableRange<float>(0.0f, 3.0f, 0.1f, 1.0f),
+        0.0f
     ));
 
     layout.add(std::make_unique<juce::AudioParameterFloat>(
         "Phase",
         "Phase",
-        juce::NormalisableRange<float>(-10000.0f, 10000.0f, 0.5f, 1.0f),
-        1.0f
+        juce::NormalisableRange<float>(-1000.0f, 1000.0f, 0.5f, 1.0f),
+        0.0f
     ));
 
     return layout;
 }
 
-void SquirrelerAudioProcessor::UpdateCoefficients(Coefficients& old, const Coefficients replacement)
+juce::dsp::IIR::Filter<float>* SquirrelerAudioProcessor::GetPeakFilters(const ChainSettings& chainSettings)
 {
-    *old = *replacement;
-}
+    const int maxAmountOfLoops = 2000;
+    const int numberOfFilters = frequencyRange / chainSettings.cycleLength;
+    const int amountToIncrement = frequencyRange / numberOfFilters;
 
-void SquirrelerAudioProcessor::UpdatePeakFilter(const ChainSettings& chainSettings)
-{
-    auto peakCoefficients = juce::dsp::IIR::Coefficients<float>::makePeakFilter(
-        getSampleRate(), 5000.0f, 1 / chainSettings.cycleLength, juce::Decibels::decibelsToGain(chainSettings.cycleHeight));
+    Filter* filters = new Filter[numberOfFilters];
+    const Filter* lastFilter = &filters[numberOfFilters];
 
-    UpdateCoefficients(leftChain.get<0>().coefficients, peakCoefficients);
-    UpdateCoefficients(rightChain.get<0>().coefficients, peakCoefficients);
+    int currentloop = 1;
+    float currentFrequency = minFrequency + amountToIncrement + chainSettings.phase;
+    for (Filter* filter = filters; filter != lastFilter; ++filter) {
+        Filter::CoefficientsPtr peakCoefficients = juce::dsp::IIR::Coefficients<float>::makePeakFilter
+        (
+            getSampleRate(),
+            currentFrequency,
+            1 / chainSettings.cycleLength,
+            juce::Decibels::decibelsToGain(chainSettings.cycleHeight)
+        );
+
+        *filter->coefficients = *peakCoefficients;
+        currentFrequency += amountToIncrement;
+        if (++currentloop > maxAmountOfLoops) break;
+    }
+
+    return filters;
 }
 
 //==============================================================================
